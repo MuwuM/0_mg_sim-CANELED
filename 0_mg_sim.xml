@@ -21,6 +21,7 @@
 	<scripts>
 	´	<global>
 			seconds_per_year = 60 --60*60
+			year=1601
 			function mod(x,y)
 				return x - (math.floor(x/y)*y)
 			end
@@ -28,17 +29,30 @@
 				return math.floor(x/y)
 			end
 			
+			
+
+			function balance_timer_tick()
+				wheat = resourceAmount('wheat', 0)
+				giveResource( 'gold' , 0 , resourceAmount('balance', 0) + ( wheat * 35))
+				giveResource( 'wheat', 0, 0 - wheat )
+				addConsoleText(resourceAmount('balance', 0) + ( wheat * 35))
+				balance_timer = startEfficientTimerEvent(seconds_per_year)
+				year = year + 1
+				setDisplayText(year)
+			end
+			
+			
+			
 			balance_timer = nil;
 		</global>	
 		<startup>
 			balance_timer = startEfficientTimerEvent(seconds_per_year)
+			setDisplayText(year) 
 		</startup>
 		<timerTriggerEvent>
 			setRandomGenInit(getWorldFrameCount())
 			if triggeredTimerEventId() == balance_timer then
-				giveResource('gold', 0, resourceAmount('balance', 0))
-				addConsoleText(resourceAmount('balance', 0))
-				balance_timer = startEfficientTimerEvent(seconds_per_year)
+				balance_timer_tick()
 			end
 		</timerTriggerEvent>
 		<unitDied>		

@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+
+<resource>
+	<image path="images/wood.bmp"/>
+	<type value="tileset">
+		<default-amount value="150"/>
+		<tileset-object value="3"/>
+	</type>
+	<display value="true" />
+</resource>
