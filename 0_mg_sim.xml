@@ -3,8 +3,8 @@
 	<difficulty value="3"/>
 	<players>
 		<player control="human" faction="farmer" team="1"/>
-		<!--<player control="network" faction="penguin" team="2"/>
-		<player control="network" faction="penguin" team="1"/>
+		<player control="network" faction="farmer" team="2"/>
+		<!--<player control="network" faction="penguin" team="1"/>
 		<player control="network" faction="penguin" team="2"/>
 		<player control="network" faction="penguin" team="1"/>
 		<player control="network" faction="penguin" team="2"/>
@@ -22,6 +22,7 @@
 	´	<global>
 			seconds_per_year = 60 --60*60
 			year=1601
+			maxPlayer = 2
 			function mod(x,y)
 				return x - (math.floor(x/y)*y)
 			end
@@ -31,16 +32,21 @@
 			
 			
 
-			function balance_timer_tick()
-				wheat = resourceAmount('wheat', 0)
-				giveResource( 'gold' , 0 , resourceAmount('balance', 0) + ( wheat * 35))
-				giveResource( 'wheat', 0, 0 - wheat )
-				addConsoleText(resourceAmount('balance', 0) + ( wheat * 35))
+			function balance_timer_tick(player)
+				wheat = resourceAmount('wheat', player)
+				giveResource( 'gold' , player , resourceAmount('balance', player) + ( wheat * 35))
+				giveResource( 'wheat', player, 0 - wheat )
+				addConsoleText('Player '..player..' '..resourceAmount('balance', player)..'+'..( wheat * 35))
 				balance_timer = startEfficientTimerEvent(seconds_per_year)
 				year = year + 1
 				setDisplayText(year)
 			end
 			
+			function eachPlayer(todo)
+				for i=1,maxPlayer do
+					todo(i-1)
+				end
+			end
 			
 			
 			balance_timer = nil;
@@ -52,7 +58,7 @@
 		<timerTriggerEvent>
 			setRandomGenInit(getWorldFrameCount())
 			if triggeredTimerEventId() == balance_timer then
-				balance_timer_tick()
+				eachPlayer(balance_timer_tick)
 			end
 		</timerTriggerEvent>
 		<unitDied>		
