@@ -7,5 +7,8 @@
     </tr> 
 	<tr>
         <td>models of MegaGlest</td><td>farmer faction</td><td>Glest-Team / MegaGlest-Team</td><td>CC-BY-SA</td>
+    </tr> 
+	<tr>
+        <td>bush2.g3d</td><td>model for the wheat ressource</td><td>wciow</td><td>?CC-BY-SA?</td>
     </tr>
 </table>
