@@ -1,0 +1,52 @@
+<?xml version="1.0" standalone="yes" ?>
+<scenario>
+	<difficulty value="3"/>
+	<players>
+		<player control="human" faction="farmer" team="1"/>
+		<!--<player control="network" faction="penguin" team="2"/>
+		<player control="network" faction="penguin" team="1"/>
+		<player control="network" faction="penguin" team="2"/>
+		<player control="network" faction="penguin" team="1"/>
+		<player control="network" faction="penguin" team="2"/>
+		<player control="network" faction="penguin" team="1"/>
+		<player control="network" faction="penguin" team="2"/>-->
+	</players>
+	<map value="testmap"/>
+	<tileset value="mg_sim_europe"/>
+	<tech-tree value="mg_sim_default"/>
+	<fog-of-war value="false"/>
+	<default-resources value="true"/>
+	<default-units value="true"/>
+	<default-victory-conditions value="false"/>
+	<scripts>
+	´	<global>
+			seconds_per_year = 60 --60*60
+			function mod(x,y)
+				return x - (math.floor(x/y)*y)
+			end
+			function div(x,y)
+				return math.floor(x/y)
+			end
+			
+			balance_timer = nil;
+		</global>	
+		<startup>
+			balance_timer = startEfficientTimerEvent(seconds_per_year)
+		</startup>
+		<timerTriggerEvent>
+			setRandomGenInit(getWorldFrameCount())
+			if triggeredTimerEventId() == balance_timer then
+				giveResource('gold', 0, resourceAmount('balance', 0))
+				addConsoleText(resourceAmount('balance', 0))
+				balance_timer = startEfficientTimerEvent(seconds_per_year)
+			end
+		</timerTriggerEvent>
+		<unitDied>		
+		</unitDied>
+		<unitCreatedOfType type="worker">
+			
+		</unitCreatedOfType>
+		<gameOver>
+		</gameOver>
+	</scripts>
+</scenario>

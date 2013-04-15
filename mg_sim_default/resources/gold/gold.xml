@@ -1,0 +1,9 @@
+<?xml version="1.0" standalone="no"?>
+
+<resource>
+	<image path="images/gold.bmp"/>
+	<type value="static">
+		<recoup-cost value="false" />
+	</type>
+	
+</resource>
